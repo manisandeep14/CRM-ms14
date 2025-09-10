@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# MERN Stack CRM Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack Customer Relationship Management (CRM) application built with MongoDB, Express.js, React.js, and Node.js.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Authentication**: User registration and login with JWT tokens
+- **Customer Management**: Add, edit, view, and delete customers
+- **Lead Management**: Track leads for each customer with status updates
+- **Search & Pagination**: Find customers quickly with search and pagination
+- **Role-based Access**: Admin and User roles
+- **Responsive Design**: Works on desktop and mobile devices
 
-### `npm start`
+## Database Schema
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Collections
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **users**: `{ id, name, email, passwordHash, role }`
+- **customers**: `{ id, name, email, phone, company, ownerId }`
+- **leads**: `{ id, customerId, title, description, status, value, createdAt }`
 
-### `npm test`
+## API Endpoints
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Authentication
+- POST `/api/auth/register` - Register new user
+- POST `/api/auth/login` - Authenticate and return JWT
 
-### `npm run build`
+### Customers
+- GET `/api/customers` - List customers (with pagination + search)
+- POST `/api/customers` - Add new customer
+- GET `/api/customers/:id` - View customer details
+- PUT `/api/customers/:id` - Update customer details
+- DELETE `/api/customers/:id` - Delete customer
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Leads
+- GET `/api/leads/customer/:customerId` - Get leads for a customer
+- POST `/api/leads` - Add new lead
+- PUT `/api/leads/:id` - Update lead
+- DELETE `/api/leads/:id` - Delete lead
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Setup Instructions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-### `npm run eject`
+2. **Environment Variables**:
+   Create a `.env` file in the root directory:
+   ```
+   MONGODB_URI=mongodb://localhost:27017/crm
+   JWT_SECRET=your_jwt_secret_key_here
+   NODE_ENV=development
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. **Start MongoDB**:
+   Make sure MongoDB is running on your system.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. **Run the Application**:
+   ```bash
+   npm run dev
+   ```
+   This will start both the backend server (port 5000) and React client (port 5173).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. **Access the Application**:
+   Open your browser to `http://localhost:5173`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+1. **Register**: Create a new account with your name, email, and password
+2. **Login**: Sign in with your credentials
+3. **Add Customers**: Create customer records with contact information
+4. **Manage Leads**: Add leads for each customer and track their status
+5. **Search**: Use the search functionality to find specific customers
+6. **Update Status**: Change lead status as they progress through the sales pipeline
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Lead Statuses
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **New**: Newly created lead
+- **Contacted**: Customer has been contacted
+- **Converted**: Lead has become a sale
+- **Lost**: Lead is no longer viable
 
-### Code Splitting
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Frontend**: React.js, React Router, Axios
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB with Mongoose ODM
+- **Authentication**: JWT (JSON Web Tokens)
+- **Password Hashing**: bcryptjs
+- **Styling**: Custom CSS with responsive design
 
-### Analyzing the Bundle Size
+## Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+├── models/          # MongoDB models (User, Customer, Lead)
+├── routes/          # API routes (auth, customers, leads)
+├── middleware/      # Authentication middleware
+├── src/
+│   ├── components/  # React components
+│   ├── context/     # Auth context
+│   └── services/    # API service layer
+├── server.js        # Express server setup
+└── package.json     # Dependencies and scripts
+```

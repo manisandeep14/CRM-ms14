@@ -92,11 +92,13 @@ A full-stack Customer Relationship Management (CRM) application built with Mongo
 
 ## Project Structure
 
-```                   BackEnd
+```
+BackEnd
 ├── models/          # MongoDB models (User, Customer, Lead)
 ├── routes/          # API routes (auth, customers, leads)
 ├── middleware/      # Authentication middleware
-├── src/              FrontEnd
+|   FrontEnd
+├── src/              
 │   ├── components/  # React components
 │   ├── context/     # Auth context
 │   └── services/    # API service layer
